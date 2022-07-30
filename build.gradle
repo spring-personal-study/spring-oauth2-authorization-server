@@ -1,11 +1,11 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.10'
+    id 'org.springframework.boot' version '2.7.0'
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id 'java'
 }
 
 group = 'bluebird.emm'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '11'
 
 configurations {
@@ -19,16 +19,30 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.cloud:spring-cloud-starter-security:2.2.5.RELEASE'
-    implementation 'org.springframework.cloud:spring-cloud-starter-oauth2:2.2.5.RELEASE'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.h2database:h2'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
+
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.7.0'
+    implementation 'org.springframework.security:spring-security-oauth2-authorization-server:0.3.0'
+
+    // jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.0'
+
+    // web
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.0'
+
+    // devtools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools:2.7.0'
+
+    // database
+    runtimeOnly 'com.h2database:h2:2.1.212'
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    // test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
+    testImplementation 'org.springframework.security:spring-security-test:5.7.1'
 }
 
 tasks.named('test') {
