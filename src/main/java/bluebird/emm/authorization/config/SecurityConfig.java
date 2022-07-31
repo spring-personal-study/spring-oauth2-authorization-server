@@ -33,6 +33,10 @@ public class SecurityConfig {
         return http.formLogin(Customizer.withDefaults()).build();
     }
 
+    /*
+       암호화 키를 저장하는 방식.
+       rsa256 방식으로 설정했다.
+     */
     @Bean
     public JWKSource<SecurityContext> jwkSource() throws NoSuchAlgorithmException {
         RSAKey rsaKey = generateRsa();
@@ -40,6 +44,10 @@ public class SecurityConfig {
         return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
     }
 
+     /*
+        각 인증 서버에는 고유한 발급자 URL 가 있어야 하므로,
+        http://auth-server:9000 을 별칭으로 지정하였습니다.
+     */
     @Bean
     public ProviderSettings providerSettings() {
         return ProviderSettings.builder()

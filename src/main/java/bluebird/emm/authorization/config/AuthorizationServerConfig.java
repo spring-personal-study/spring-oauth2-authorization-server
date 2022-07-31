@@ -13,10 +13,17 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 
 import java.util.UUID;
 
+/*
+    단일 클라이언트 생성
+*/
 @Configuration
 @Import(OAuth2AuthorizationServerConfiguration.class)
 public class AuthorizationServerConfig {
 
+    /*
+        클라이언트가 인증 서버에
+        권한 부여 코드를 부여받기 위해 전달해야 하는 정보들.
+     */
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
