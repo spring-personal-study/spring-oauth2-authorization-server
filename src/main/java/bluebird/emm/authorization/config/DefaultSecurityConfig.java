@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+/*
+    Spring Web Security 설정
+ */
 @EnableWebSecurity
 public class DefaultSecurityConfig {
 
