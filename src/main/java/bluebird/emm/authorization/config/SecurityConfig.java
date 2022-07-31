@@ -32,7 +32,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class SecurityConfig {
 
     @Bean
@@ -74,8 +74,8 @@ public class SecurityConfig {
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("messaging-client")
-                .clientSecret("{noop}secret")
+                .clientId("clientId")
+                .clientSecret("{noop}clientSecret")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -83,8 +83,7 @@ public class SecurityConfig {
                 .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
                 .redirectUri("http://127.0.0.1:8080/authorized")
                 .scope(OidcScopes.OPENID)
-                .scope("message.read")
-                .scope("message.write")
+                .scope("articles.read")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
 
@@ -119,6 +118,8 @@ public class SecurityConfig {
 
     @Bean
     public ProviderSettings providerSettings() {
-        return ProviderSettings.builder().build();
+        return ProviderSettings.builder()
+                .issuer("http://auth-server:9000")
+                .build();
     }
 }
