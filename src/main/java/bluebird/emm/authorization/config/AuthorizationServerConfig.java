@@ -44,7 +44,7 @@ public class AuthorizationServerConfig {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("api-client") // 어떤 클라이언트가 자원에 접근을 시도하고 있는지 알기 위한 정보
                 .clientSecret("{noop}api-client-secret") // 클라이언트<->인증 서버간 서로를 신뢰할 수 있는 정보
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC) // (Id, Password 만 요구)
+                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC) // (Id, Password 만 요구)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE) // authorization code를 클라이언트가 생성할 수 있도록 권한 위임
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN) // 리프레시 토큰을 클라이언트가 생성할 수 있도록 권한 위임
                 .redirectUri("http://127.0.0.1:8080/login/oauth2/code/articles-client-oidc")// 클라이언트가 사용할 redirect uri를 설정합니다.
