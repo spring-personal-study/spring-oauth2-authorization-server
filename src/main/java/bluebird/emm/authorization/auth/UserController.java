@@ -12,8 +12,8 @@ public class UserController {
     public String apiMe(Principal principal) {
         System.out.println("principal = " + principal);
 
-        if(principal == null) {
-            return "pricipal is null";
+        if (principal == null) {
+            return "principal is null";
         }
         return principal.getName();
     }

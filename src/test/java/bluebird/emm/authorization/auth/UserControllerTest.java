@@ -61,7 +61,7 @@ class UserControllerTest {
 
         MvcResult mvcResult = mockMvc.perform(post("/oauth/token")
                 .params(params)
-                .accept(MediaType.APPLICATION_FORM_URLENCODED)
+                .accept(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .header("Authorization", "Basic " + encodedCredentials)
         ).andReturn();
 
