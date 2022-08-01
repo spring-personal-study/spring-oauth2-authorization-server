@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.util.encoders.Base64;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
@@ -18,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class OauthController {
@@ -26,16 +28,10 @@ public class OauthController {
     private final ObjectMapper objectMapper;
 
     @GetMapping("/oauth2/callback")
-    public OauthTokenDto callback(@RequestParam String code, HttpServletRequest request) throws Exception {
-        System.out.println("code = " + code);
-
-//        if(1==1){
-//            throw new Exception("테스트 에러 입니다");
-//        }
-
+    public OauthTokenDto callback(@RequestParam String code) throws Exception {
+        log.info("code = {}", code);
         OauthTokenDto token = getToken(code);
-        System.out.println("getToken() = " + token);
-
+        log.info("getToken = {}", token);
         return token;
     }
 
@@ -60,8 +56,7 @@ public class OauthController {
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8080/oauth/token", request, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             System.out.println("response.getBody() = " + response.getBody());
-            OauthTokenDto oauthTokenDto = objectMapper.readValue(response.getBody(), OauthTokenDto.class);
-            return oauthTokenDto;
+            return objectMapper.readValue(response.getBody(), OauthTokenDto.class);
         }
         return null;
     }

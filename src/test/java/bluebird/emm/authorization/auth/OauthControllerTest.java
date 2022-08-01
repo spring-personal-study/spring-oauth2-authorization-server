@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -38,7 +39,8 @@ class OauthControllerTest {
         String clientId = "testClientId";
         String secret = "testSecret";
         String username = "user";
-        MultiValueMap params = new LinkedMultiValueMap();
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "password");
         params.add("username", username);
         params.add("password", "pass");
@@ -49,7 +51,8 @@ class OauthControllerTest {
                 .params(params)
                 .with(httpBasic(clientId, secret))
                 .accept(MediaType.APPLICATION_JSON_VALUE)
-        ).andReturn();
+        ).andDo(MockMvcResultHandlers.print())
+                .andReturn();
 
         System.out.println("result = " + result);
         String contentAsString = result.getResponse().getContentAsString();
@@ -73,7 +76,7 @@ class OauthControllerTest {
         String checkTokenStr = mvcResultApi.getResponse().getContentAsString();
 
         Map checkTokenMap = objectMapper.readValue(checkTokenStr, Map.class);
-        boolean active = (boolean) checkTokenMap.get("active");;
+        boolean active = (boolean) checkTokenMap.get("active");
         String user_name = (String) checkTokenMap.get("user_name");
         String client_id = (String) checkTokenMap.get("client_id");
 

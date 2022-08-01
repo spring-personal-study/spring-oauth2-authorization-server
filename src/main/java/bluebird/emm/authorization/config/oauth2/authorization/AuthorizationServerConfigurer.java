@@ -26,20 +26,19 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        // 토큰유효성(/token/check_token) 접근을 위해 설정
         security.checkTokenAccess("permitAll()");
     }
 
     @Override
-    public void configure(
-            ClientDetailsServiceConfigurer clients) throws Exception {
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
         clients.inMemory()
                 .withClient("testClientId")
                 .secret("{noop}testSecret")
-                .autoApprove(true)
-                .redirectUris("http://localhost:8080/oauth2/callback")
+                .redirectUris("/oauth2/callback")
                 .authorizedGrantTypes("authorization_code", "password", "refresh_token")
                 .scopes("read", "write")
-                ;
+        ;
     }
 }
