@@ -10,3 +10,16 @@ spring:
     url: jdbc:h2:mem:test_db;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
+
+#  datasource:
+#    url: jdbc:mysql://localhost:3308/user_registration
+#    username: wso2carbon
+#    password: wso2carbon
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
