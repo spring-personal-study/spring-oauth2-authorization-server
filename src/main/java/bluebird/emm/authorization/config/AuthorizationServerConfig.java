@@ -46,7 +46,7 @@ public class AuthorizationServerConfig {
     public RegisteredClientRepository registeredClientRepository() {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("api-client")
-                .clientSecret(passwordEncoder.encode("api-secret"))
+                .clientSecret(passwordEncoder.encode("api-client-secret"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
